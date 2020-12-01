@@ -3,56 +3,52 @@ from django.views.decorators.csrf import csrf_exempt
 
 from rest_framework.parsers import JSONParser
 
-from .models import Task
-from .serializers import TaskSerializer
+from .models import User
+from .serializers import UserSerializer
 
 # Create your views here.
 
-
-# def index(request):
-#     return HttpResponse("Hello, world. You're at the tasks index.")
-
 @csrf_exempt
-def task_list(request):
+def user_list(request):
     """
-    List all tasks, or create a new task.
+    List all users, or create a new user.
     """
     if request.method == 'GET':
-        tasks = Task.objects.all()
-        serializer = TaskSerializer(tasks, many=True)
+        users = User.objects.all()
+        serializer = UserSerializer(users, many=True)
         return JsonResponse(serializer.data, safe=False)
 
     elif request.method == 'POST':
         data = JSONParser().parse(request)
-        serializer = TaskSerializer(data=data)
+        serializer = UserSerializer(data=data)
         if serializer.is_valid():
             serializer.save()
             return JsonResponse(serializer.data, status=201)
         return JsonResponse(serializer.errors, status=400)
 
 @csrf_exempt
-def task_detail(request, id):
+def user_detail(request, id):
     """
-    Retrieve, update or delete a task.
+    Retrieve, update or delete a user.
     """
 
     try:
-        task = Task.objects.get(pk=id)
-    except Task.DoesNotExist:
+        user = User.objects.get(pk=id)
+    except User.DoesNotExist:
         return HttpResponse(status=404)
 
     if request.method == 'GET':
-        serializer = TaskSerializer(task)
+        serializer = UserSerializer(user)
         return JsonResponse(serializer.data)
 
     elif request.method == 'PUT':
         data = JSONParser().parse(request)
-        serializer = TaskSerializer(task, data=data)
+        serializer = UserSerializer(user, data=data)
         if serializer.is_valid():
             serializer.save()
             return JsonResponse(serializer.data)
         return JsonResponse(serializer.errors, status=400)
 
     elif request.method == 'DELETE':
-        task.delete()
+        user.delete()
         return HttpResponse(status=204)
