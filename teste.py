@@ -7,7 +7,7 @@ url = 'http://localhost:8000'
 headers = {"Content-type": "application/json"}
 
 json={
-    'title': 'oi',
+    'title': 'oi',açssdakms [dmas[s dm[a smd[oamd [om]]]]]
     'pub_date': str(datetime.now()),
     'description': 'oi'
 }
