@@ -6,7 +6,12 @@ url = 'http://localhost:8000'
 
 headers = {"Content-type": "application/json"}
 
-json={
+json={asdansdóans[dp a[dm[akn d[pasm
+def a spm(self, parameter_list):
+    """
+    docstring
+    """
+    pass]]]]
     'title': 'oi',
     'pub_date': str(datetime.now()),
     'description': 'oi'
